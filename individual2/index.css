@@ -1,0 +1,21 @@
+body {
+    font-family: 'Roboto', sans-serif; 
+    margin: 0;
+    padding: 0;
+    background-color: #ad8e55e3;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 80px; 
+    font-size: 36px; 
+}
+
+#activity {
+    display: block;
+    text-align: center;
+    font-style: normal; 
+    font-size: 28px; 
+    margin-top: 30px; 
+    letter-spacing: 1px; 
+}
