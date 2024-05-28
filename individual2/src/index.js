@@ -1,27 +1,28 @@
 import { fetchData } from './activity.js';
 
-// Функция для обновления активности на странице
-function updateActivity(activity) {
-    const activityElement = document.getElementById('activity');
-    activityElement.textContent = activity;
+// Функция для отображения активности на странице
+function displayActivity(activity) {
+    const activityContainer = document.getElementById('activity');
+    activityContainer.innerText = activity;
 }
 
-// Функция для обновления данных каждую минуту
-async function updateDataPeriodically() {
+// Функция для получения и обновления данных с заданной периодичностью
+async function refreshData() {
     try {
-        const data = await fetchData();
-        if (data) {
-            updateActivity(data.activity);
+        const result = await fetchData();
+        if (result && result.activity) {
+            displayActivity(result.activity);
         } else {
-            updateActivity('К сожалению, произошла ошибка');
+            displayActivity('К сожалению, произошла ошибка');
         }
-    } catch (error) {
-        console.error('Error updating data:', error);
-        updateActivity('К сожалению, произошла ошибка');
+    } catch (err) {
+        console.error('Ошибка при обновлении данных:', err);
+        displayActivity('К сожалению, произошла ошибка');
     } finally {
-        setTimeout(updateDataPeriodically, 60000); // Обновление каждую минуту (60000 миллисекунд)
+        // Повторный вызов функции через минуту (60000 миллисекунд)
+        setTimeout(refreshData, 60000);
     }
 }
 
-// Запуск обновления данных при загрузке страницы
-updateDataPeriodically();
+// Запуск периодического обновления данных при загрузке страницы
+refreshData();
