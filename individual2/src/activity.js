@@ -1,14 +1,18 @@
 // Функция для получения данных с сервера
 async function fetchData() {
+    const apiUrl = 'https://www.boredapi.com/api/activity/';
+    
     try {
-        const response = await fetch('https://www.boredapi.com/api/activity/');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        const response = await fetch(apiUrl);
+        
+        if (response.status >= 200 && response.status < 300) {
+            const data = await response.json();
+            return data;
+        } else {
+            throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
         }
-        const data = await response.json();
-        return data;
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error(`Ошибка при запросе: ${error.message}`);
         return null;
     }
 }
